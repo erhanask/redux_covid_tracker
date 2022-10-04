@@ -5,7 +5,6 @@ let itemsCommonStyles = {
 }
 
 export const CardItemInfected = () => {
-  console.log(itemsCommonStyles);
   return (
     <>
       <Card sx={{ bgcolor : 'primary.light',itemsCommonStyles  }}>

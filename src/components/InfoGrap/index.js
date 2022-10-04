@@ -31,7 +31,7 @@ export const options = {
   },
 };
 
-const labels = ["Infected", "Recovered", "Death", "Active"];
+const labels = ["Counts", "Recovered", "Death", "Active"];
 
 export const data = {
   labels,

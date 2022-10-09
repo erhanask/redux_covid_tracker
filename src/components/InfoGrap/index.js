@@ -7,7 +7,10 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
+import { useEffect } from "react";
 import { Bar } from "react-chartjs-2";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCovidDatas } from "../../redux/InfoSlice";
 
 ChartJS.register(
   CategoryScale,
@@ -31,35 +34,42 @@ export const options = {
   },
 };
 
-const labels = ["Counts", "Recovered", "Death", "Active"];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Infected",
-      data: [3],
-      backgroundColor: "#42a5f5",
-    },
-    {
-      label: "Recovered",
-      data: [0, 2],
-      backgroundColor: "#4caf50",
-    },
-    {
-      label: "Death",
-      data: [0, 0, 5],
-      backgroundColor: "#ef5350",
-    },
-    {
-      label: "Active",
-      data: [0, 0, 0, 8],
-      backgroundColor: "#ff9800",
-    },
-  ],
-};
+const labels = ["Infected", "Recovered", "Death"];
+
 
 export const InfoGrap = () => {
+  const dispatch = useDispatch();
+  const status = useSelector(state => state.info.status);
+  const informations = useSelector(state => state.info.informations);
+
+  useEffect(() => {
+      if (status === 'idle')
+          dispatch(fetchCovidDatas({country: 'turkey'}))
+  },[dispatch,status])
+
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Infected",
+        data: [status === 'succeeded' ? informations.confirmed.value : '0'],
+        backgroundColor: "#42a5f5",
+      },
+      {
+        label: "Recovered",
+        data: [0, status === 'succeeded' ? informations.recovered.value : '0'],
+        backgroundColor: "#4caf50",
+      },
+      {
+        label: "Death",
+        data: [0, 0, status === 'succeeded' ? informations.deaths.value : '0'],
+        backgroundColor: "#ef5350",
+      },
+    ],
+  };
+
   return (
     <>
       <Bar

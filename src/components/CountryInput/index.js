@@ -1,22 +1,23 @@
 import { Box, FormControl, InputLabel, NativeSelect } from "@mui/material";
+import { countries } from "../helpers/countries";
 
 export const CountryInput = () => {
   return (
     <Box sx={{textAlign:'center'}}>
-    <FormControl sx={{margin:"5px auto"}}>
+    <FormControl sx={{margin:"15px auto"}}>
       <InputLabel variant="standard" htmlFor="uncontrolled-native">
-        Country
+        Choose Country
       </InputLabel>
       <NativeSelect
         defaultValue={30}
         inputProps={{
-          name: "age",
+          name: "country",
           id: "uncontrolled-native",
         }}
       >
-        <option value={10}>Ten</option>
-        <option value={20}>Twenty</option>
-        <option value={30}>Thirty</option>
+        {countries.map((country)=> {
+            return <option key={country.code} value={country.name.replace(' ','_')}>{country.name}</option>
+        })}
       </NativeSelect>
     </FormControl>
     </Box>

@@ -9,30 +9,27 @@ import axios from "axios";
 export const fetchCovidDatas = createAsyncThunk(
   "info/getCovidDatas",
   async ({ country }) => {
+    console.log(country);
     const res = await axios.get(
-      `https://covid19.mathdro.id/api/countries/${country}`
+      country === "global"
+        ? `https://covid19.mathdro.id/api`
+        : `https://covid19.mathdro.id/api/countries/${country}`
     );
     return res.data;
   }
 );
-
+//todo: country state will be added .
 export const InfoSlice = createSlice({
   name: "info",
   initialState: {
-    infected: null,
-    recovered: null,
-    deaths: null,
-    lastUpdate: null,
+    informations: {},
     status: "idle",
   },
   reducers: {},
   extraReducers: {
     [fetchCovidDatas.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      state.infected = action.payload.confirmed;
-      state.recovered = action.payload.recovered;
-      state.deaths = action.payload.deaths;
-      state.lastUpdate = action.payload.lastUpdate;
+      state.informations = action.payload;
     },
     [fetchCovidDatas.pending]: (state, action) => {
       state.status = "loading";

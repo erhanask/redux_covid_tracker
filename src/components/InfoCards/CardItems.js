@@ -8,26 +8,25 @@ import { fetchCovidDatas } from "../../redux/InfoSlice";
 export const CardItemInfected = () => {
   const dispatch = useDispatch();
   const status = useSelector(state => state.info.status);
-  const infoInfected = useSelector(state => state.info.infected);
-  const lastUpdate = useSelector(state => state.info.lastUpdate);
-  console.log(lastUpdate)
+  const informations = useSelector(state => state.info.informations);
+
   useEffect(() => {
       if (status === 'idle')
-          dispatch(fetchCovidDatas({country: 'turkey'}))
+          dispatch(fetchCovidDatas({country: 'global'}))
   },[dispatch,status])
 
   return (
     <>
-      <Card sx={{ bgcolor: "primary.light", maxHeight: "170px" }}>
+      <Card sx={{ bgcolor: "primary.light", maxHeight: "195px" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             Infected
           </Typography>
           <Typography variant="h5" component="div">
-            <b>{status === 'succeeded' ? infoInfected.value : 'Loading'}</b>
+            <b>{status === 'succeeded' ? informations.confirmed.value.toLocaleString() : 'Loading'}</b>
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Last Update : {status === 'succeeded' ? lastUpdate : 'Loading'}
+            Last Update : {status === 'succeeded' ? informations.lastUpdate : 'Loading'}
           </Typography>
           <Typography variant="body2">
             Active Cases Of Covid-19
@@ -43,26 +42,25 @@ export const CardItemInfected = () => {
 export const CardItemRecovered = () => {
   const dispatch = useDispatch();
   const status = useSelector(state => state.info.status);
-  const infoRecovered = useSelector(state => state.info.recovered);
+  const informations = useSelector(state => state.info.informations);
 
-  console.log(infoRecovered);
   useEffect(() => {
       if (status === 'idle')
-          dispatch(fetchCovidDatas({country: 'turkey'}))
+          dispatch(fetchCovidDatas({country: 'global'}))
   },[dispatch,status])
 
   return (
     <>
-      <Card sx={{ bgcolor: "success.light", maxHeight: "170px" }}>
+      <Card sx={{ bgcolor: "success.light", maxHeight: "195px" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             Recovered
           </Typography>
           <Typography variant="h5" component="div">
-            <b>2.500.000</b>
+            <b>{status === 'succeeded' ? informations.recovered.value.toLocaleString() : 'Loading'}</b>
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Last Update : 02.10.2022 6:21:55PM
+            Last Update : {status === 'succeeded' ? informations.lastUpdate : 'Loading'}
           </Typography>
           <Typography variant="body2">
             Recovered Caused By Covid-19
@@ -79,26 +77,25 @@ export const CardItemDeaths = () => {
 
   const dispatch = useDispatch();
   const status = useSelector(state => state.info.status);
-  const infoRecovered = useSelector(state => state.info.recovered);
+  const informations = useSelector(state => state.info.informations);
 
-  console.log(infoRecovered);
   useEffect(() => {
       if (status === 'idle')
-          dispatch(fetchCovidDatas({country: 'turkey'}))
+          dispatch(fetchCovidDatas({country: 'global'}))
   },[dispatch,status])
 
   return (
     <>
-      <Card sx={{ bgcolor: "error.light", maxHeight: "170px" }}>
+      <Card sx={{ bgcolor: "error.light", maxHeight: "195px" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             Deaths
           </Typography>
           <Typography variant="h5" component="div">
-            <b>2.500.000</b>
+            <b>{status === 'succeeded' ? informations.deaths.value.toLocaleString() : 'Loading'}</b>
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Last Update : 02.10.2022 6:21:55PM
+           Last Update : {status === 'succeeded' ? informations.lastUpdate : 'Loading'}
           </Typography>
           <Typography variant="body2">
             Deaths Caused By Covid-19

@@ -39,7 +39,7 @@ export const CardItemInfected = () => {
           <Typography variant="body2">
             Active Cases Of Covid-19
             <br />
-            in : country
+            in : {country}
           </Typography>
         </CardContent>
       </Card>
@@ -82,7 +82,7 @@ export const CardItemRecovered = () => {
           <Typography variant="body2">
             Recovered Caused By Covid-19
             <br />
-            in : country
+            in : {country}
           </Typography>
         </CardContent>
       </Card>
@@ -125,7 +125,7 @@ export const CardItemDeaths = () => {
           <Typography variant="body2">
             Deaths Caused By Covid-19
             <br />
-            in : country
+            in : {country}
           </Typography>
         </CardContent>
       </Card>
